@@ -8,7 +8,6 @@
 
 
 typedef struct _Node{
-    // bool active;
     char letter;
     long unsigned int frequency;
     struct _Node *next[NUM_OF_LETTERS+1];
