@@ -13,14 +13,19 @@ typedef struct _Node{
     struct _Node *next[NUM_OF_LETTERS+1];
 } Node;
 
+// Given the arguments from main, retunrs the mode of the program
+// 0 for regular, 1 for reversed
 char check_mode(int argc, char **argv)
 {
     if(argc > 1)
     {
-        char *str = argv[1];
-        if(strlen(str) == 1 && str[0] == 'r')
+        for(int i = 1; i < argc; i++)
         {
-            return 1;
+            char *str = argv[i];
+            if(strlen(str) == 1 && str[0] == 'r')
+            {
+                return 1;
+            }
         }
     }
     return 0;
@@ -37,13 +42,14 @@ char capslock_off(char c)
     {
         return c;
     }
-    else if('A' <= c && c <= 'z')
+    else if('A' <= c && c <= 'Z')
     {
          return c + 32;
     }
     return 0;
 }
 
+//Create a new node given a character
 Node* new_node(char c)
 {
     Node *nodeptr = (Node*)malloc(sizeof(Node));
@@ -60,7 +66,7 @@ Node* new_node(char c)
     return nodeptr;
 }
 
-
+//Create a new empty empty trie with a symbol '*' as head
 Node new_trie()
 {
     Node new_tri;
@@ -73,6 +79,7 @@ Node new_trie()
     return new_tri;
 }
 
+//Uses scanf to build the tree
 void build_trie(Node *trie)
 {
     char c = '\0';
@@ -113,6 +120,7 @@ void build_trie(Node *trie)
     }
 }
 
+//Prints a single word depending on the mode and frees the data after printing
 long unsigned int print_word(Node *n, char mode)
 {
     long unsigned int f = 0;
@@ -170,6 +178,7 @@ long unsigned int print_word(Node *n, char mode)
     return f;
 }
 
+// Goes over the trie's nodes and prints them depending of the mode
 void print_trie(Node* node, char mode)
 {
     if(mode)
