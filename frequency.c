@@ -61,26 +61,6 @@ Node* new_node(char c)
     return nodeptr;
 }
 
-void free_all(Node *trie)
-{
-    if(trie == NULL)
-    {
-        return;
-    }
-    for(int i = 0; i < NUM_OF_LETTERS+1; i++)
-    {
-        free_all(trie->next[i]);
-    }
-    free(trie);
-}
-
-void free_trie(Node *trie)
-{
-    for(int i = 0; i < NUM_OF_LETTERS+1; i++)
-    {
-        free_all(trie->next[i]);
-    }
-}
 
 Node new_trie()
 {
@@ -131,47 +111,6 @@ void build_trie(Node *trie)
             }
             curr = trie;
         } 
-    }
-}
-
-void print_tri(Node *trie, char mode)
-{
-    if(trie == NULL)
-    {
-        return;
-    }
-    if(trie->letter == END_OF_WORD )
-    {
-        printf(" %ld\n",trie->frequency);
-        return;
-    }
-    if(mode)
-    {
-        for(int i = 0; i < NUM_OF_LETTERS + 1; i++)
-        {
-            if(trie->next[NUM_OF_LETTERS - i]!=NULL)
-            {
-                if(trie->letter != HEAD_LETTER)
-                {
-                    printf("%c",trie->letter);
-                }
-                print_tri(trie->next[NUM_OF_LETTERS - i], mode);
-            }
-        }
-    }
-    else
-    {
-        for(int i = 0; i < NUM_OF_LETTERS + 1; i++)
-        {
-            if(trie->next[i]!=NULL)
-            {
-                 if(trie->letter != HEAD_LETTER)
-                {
-                    printf("%c",trie->letter);
-                }
-                print_tri(trie->next[i], mode);
-            }
-        }
     }
 }
 
